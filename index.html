@@ -26,6 +26,8 @@
     .evidence{margin-top:16px}.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:15px}.event{padding:16px 18px;background:#fbfcfe;border:1px solid var(--line);border-radius:11px}.event b{display:block;font-size:14px;margin-bottom:5px}.event time{font-size:11px;color:#73869b}.event p{font-size:12px;margin:10px 0 0;line-height:1.7;color:#465b6f}
     .table-wrap{overflow:auto;margin-top:17px}table{border-collapse:collapse;width:100%;min-width:760px;font-size:12px}th{text-align:left;background:#edf3f8;color:#385371;font-weight:700}td,th{padding:11px 13px;vertical-align:top;border-bottom:1px solid #e5ebf1}td:first-child{font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}
     details{border-bottom:1px solid #dfe6ee;padding:12px 0}details:last-child{border-bottom:0}summary{font-size:13px;font-weight:700;cursor:pointer}details ul{margin:12px 0;padding-left:20px;font-size:12px;color:#53667a}li{margin:7px 0}a{color:#216b9a}footer{margin-top:19px;color:#63788c;font-size:12px;line-height:1.8;padding:5px 4px 15px}footer strong{color:#29445f}
+    .stance{margin-top:16px}.stance-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.stance-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.signals{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px;margin:19px 0}.signal{border:1px solid #e1e8f0;border-radius:12px;padding:15px 13px;background:#fbfcfe;min-width:0}.signal .org{font-weight:750;font-size:13px;min-height:35px;line-height:1.4}.signal .tag{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:750;font-size:12px;margin:11px 0 8px}.tag.defensive{background:#fff1d8;color:#865414}.tag.active{background:#e0f3ee;color:#176b54}.tag.uncertain{background:#edf0f5;color:#515e70}.tag.reduced{background:#fae8e7;color:#9f3931}.signal .why{font-size:12px;line-height:1.65;color:#425a72;min-height:81px}.signal .when{font-size:10px;color:#77879a;border-top:1px solid #e5ebf1;padding-top:9px;margin-top:11px}.stance-conclusion{border-left:3px solid #446c97;background:#f5f8fd;padding:12px 15px;color:#415870;border-radius:0 9px 9px 0;font-size:13px;line-height:1.75}.stance-note{font-size:12px;color:#65768a;line-height:1.7;margin:13px 0 0}
+    @media(max-width:1060px){.signals{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:690px){.signals{grid-template-columns:1fr}.signal .org,.signal .why{min-height:0}}
     @media(max-width:800px){.container{padding:12px}.hero{padding:23px}.hero h1{font-size:25px}.main,.second,.evidence-grid{grid-template-columns:1fr}.card{padding:19px}.risk-row{grid-template-columns:143px minmax(40px,1fr) 43px;gap:10px}.name{font-size:12px}.subtitle{font-size:10px}.quarter{grid-template-columns:68px 1fr 65px}}
   </style>
 </head>
@@ -37,6 +39,18 @@
       <p>仅追踪五组指定机构或投资者在公开信息中可验证的资金风险姿态：流动性、净买卖风险资产、收缩风险敞口、去杠杆、对冲及选择性配置。严格区分真实组合证据、历史事件和缺失数据。</p>
       <div class="meta"><span class="chip">核查日 · 2026-11-06（北京时间）</span><span class="chip">美国披露截点 · 2026-11-05</span><span class="chip">历史财报与披露日期分别标注</span></div>
     </header>
+    <section class="card stance" aria-labelledby="capital-direction">
+      <div class="stance-head"><div><h2 id="capital-direction">一眼看懂：这五家正在进场，还是撤离？</h2><p>只判断有证据支持的资金行为；<strong>历史动作 ≠ 今天仍在执行</strong>。方向判断与完整组合可量化评分分开。</p></div><span class="chip" style="color:#3b5d7e;background:#edf3f9;border-color:#dae5f0">最新核查 · 2026-11-06</span></div>
+      <div class="signals">
+        <div class="signal"><div class="org">Berkshire Hathaway</div><span class="tag defensive">防守中择机买入</span><div class="why">现金及短债维持高位，但2026上半年股票净买入。<strong>不是全面撤离。</strong></div><div class="when">证据：2026 Q2 10-Q｜报告期6/30<br>公开程度：高</div></div>
+        <div class="signal"><div class="org">Peter Thiel / Thiel Macro</div><span class="tag active">可见股票端进场</span><div class="why">Q2 13F报告8项美股多头、约4.19亿美元；<strong>不能推出整体资金净投入。</strong></div><div class="when">证据：SEC 13F｜6/30持仓，8/14披露<br>当前整体置信度：低</div></div>
+        <div class="signal"><div class="org">Cathie Wood / ARK</div><span class="tag active">持续进攻＋轮动</span><div class="why">公开ETF仍配置成长型风险资产，并继续双向调整；<strong>没有全面转入现金的证据。</strong></div><div class="when">证据：ETF持仓及交易线索<br>不代表全部基金资金流入</div></div>
+        <div class="signal"><div class="org">Michael Burry / Scion</div><span class="tag uncertain">风险警惕，现仓未知</span><div class="why">原基金2025年清算且终止顾问注册；<strong>看空观点≠当前资产全部撤离。</strong></div><div class="when">证据：2025-11清算/SEC注册<br>2026资金方向：未知</div></div>
+        <div class="signal"><div class="org">Situational Awareness LP</div><span class="tag reduced">已发生大幅去风险</span><div class="why">2026年7月受重大损失冲击而大规模去杠杆；9月仍见单项投资。<strong>目前是否回补未知。</strong></div><div class="when">证据：7月撤仓／9月13D/A<br>历史动作明确，当前仓位未知</div></div>
+      </div>
+      <div class="stance-conclusion"><strong>五组综合信号：</strong>不是一致撤离。Berkshire偏谨慎防守；Thiel公开多头及ARK公开ETF仍承担风险；Scion的个人现仓不透明；Situational有明确的历史去杠杆事件。<strong>目前不能认定五组资金正在同步准备应对金融危机。</strong></div>
+      <p class="stance-note"><strong>以后最值得监控：</strong>① Berkshire是否持续减股票并增加现金/短债；② Thiel与ARK是否从可见风险资产持续转向防御；③ Burry是否有新官方基金/衍生品披露；④ Situational是否继续去杠杆、清算或恢复风险敞口。每次变化写明发生日期、披露日期、证据级别，不依据市场观点替代资金动作。</p>
+    </section>
     <section class="main">
       <article class="card">
         <h2>五组机构 · 防御行为倾向评分</h2><p class="desc">1 分偏进攻，3 分攻守并存，5 分显著去风险；没有足够近期完整组合证据时显示 N/A。</p>
