@@ -38,3 +38,22 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify public website from runner
+        shell: bash
+        env:
+          SITE_URL: https://vincentjianghy.github.io/smart-money-radar/
+        run: |
+          set -euo pipefail
+          for attempt in {1..8}; do
+            echo "Public HTTP request attempt ${attempt}/8: ${SITE_URL}"
+            status=$(curl --silent --show-error --location --max-time 20 --output /tmp/smart-money-radar.html --write-out '%{http_code}' "${SITE_URL}" || true)
+            echo "HTTP status: ${status}"
+            if [[ "${status}" == "200" ]] && grep -Fq '<title>Smart Money Radar' /tmp/smart-money-radar.html && grep -Fq 'Berkshire Hathaway' /tmp/smart-money-radar.html && grep -Fq 'name="viewport"' /tmp/smart-money-radar.html; then
+              echo "PUBLIC_SITE_VERIFIED: HTTP 200; title, Berkshire content and mobile viewport confirmed."
+              echo "Public site URL: ${SITE_URL}"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Public website did not pass external HTTP/content validation."
+          exit 1
