@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Smart Money Radar — 五组知名投资机构公开资金攻守姿态仪表盘。" />
+  <meta name="theme-color" content="#10243a" />
+  <title>Smart Money Radar | 投资机构资金攻守追踪</title>
+  <style>
+    :root{--bg:#f4f7fb;--ink:#16283c;--muted:#68798c;--line:#dce5ed;--blue:#4878ae;--teal:#2c9485;--amber:#d7a453;--navy:#10243a;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.65 system-ui,-apple-system,"Segoe UI",Arial,"Microsoft Yahei",sans-serif;color:var(--ink)}
+    .container{max-width:1190px;margin:auto;padding:24px}.hero{background:linear-gradient(120deg,#10243a,#1d4262);border-radius:20px;padding:30px 34px;color:#fff}
+    .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9bd2df;font-weight:700;margin:0 0 7px}
+    h1{font-size:30px;line-height:1.25;margin:0 0 12px;letter-spacing:-.4px}.hero p{max-width:910px;color:#caddf0;font-size:13px;margin:0}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chip{border:1px solid #7c98ae70;background:#ffffff13;border-radius:24px;padding:5px 11px;font-size:12px}
+    .main{display:grid;grid-template-columns:1.24fr .76fr;gap:16px;margin-top:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 6px 18px #23375108}
+    h2{font-size:18px;letter-spacing:-.2px;margin:0 0 5px}.desc{color:var(--muted);font-size:12px;margin:0 0 22px}
+    .risk-row{display:grid;grid-template-columns:197px minmax(50px,1fr) 48px;gap:14px;align-items:center;margin:17px 0}.name{font-weight:700;font-size:13px;line-height:1.3}.subtitle{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
+    .bar{height:15px;background:#e8eff4;border-radius:9px;overflow:hidden}.bar span{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#5a9fc0,#436ba0)}.bar .offense{background:linear-gradient(90deg,#39a895,#258779)}.score{font-weight:800;text-align:right;font-size:13px}.na{color:#8b97a4}
+    .summary{font-size:12px;color:var(--muted);line-height:1.7;padding-top:13px;border-top:1px solid var(--line);margin-top:21px}
+    .donut{width:196px;height:196px;border-radius:50%;margin:24px auto 13px;background:conic-gradient(#4878ae 0 72deg,#2c9485 72deg 144deg,#dbe4ec 144deg 360deg);position:relative}.donut:after{content:'5 组机构';position:absolute;inset:46px;background:#fff;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:17px}
+    .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 17px;font-size:12px;margin-bottom:21px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+    .numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:23px}.metric{border:1px solid var(--line);border-radius:10px;padding:12px 7px;text-align:center}.metric b{font-size:22px;display:block}.metric span{font-size:11px;color:var(--muted)}
+    .second{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}.quarter{display:grid;grid-template-columns:80px 1fr 80px;gap:12px;align-items:center;margin:19px 0}.qbar{height:27px;border-radius:6px;background:#edf3f7;overflow:hidden}.qbar div{height:100%;border-radius:6px;background:linear-gradient(90deg,#2d8795,#5baab4)}.quarter strong{font-size:13px;text-align:right}.note{font-size:12px;color:#6b7d8c;margin:15px 0 0}
+    .notice{background:#f7f9fc;border-left:3px solid #5980a4;padding:14px 17px;border-radius:0 9px 9px 0;font-size:12px;color:#52667d;line-height:1.8}
+    .evidence{margin-top:16px}.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:15px}.event{padding:16px 18px;background:#fbfcfe;border:1px solid var(--line);border-radius:11px}.event b{display:block;font-size:14px;margin-bottom:5px}.event time{font-size:11px;color:#73869b}.event p{font-size:12px;margin:10px 0 0;line-height:1.7;color:#465b6f}
+    .table-wrap{overflow:auto;margin-top:17px}table{border-collapse:collapse;width:100%;min-width:760px;font-size:12px}th{text-align:left;background:#edf3f8;color:#385371;font-weight:700}td,th{padding:11px 13px;vertical-align:top;border-bottom:1px solid #e5ebf1}td:first-child{font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}
+    details{border-bottom:1px solid #dfe6ee;padding:12px 0}details:last-child{border-bottom:0}summary{font-size:13px;font-weight:700;cursor:pointer}details ul{margin:12px 0;padding-left:20px;font-size:12px;color:#53667a}li{margin:7px 0}a{color:#216b9a}footer{margin-top:19px;color:#63788c;font-size:12px;line-height:1.8;padding:5px 4px 15px}footer strong{color:#29445f}
+    @media(max-width:800px){.container{padding:12px}.hero{padding:23px}.hero h1{font-size:25px}.main,.second,.evidence-grid{grid-template-columns:1fr}.card{padding:19px}.risk-row{grid-template-columns:143px minmax(40px,1fr) 43px;gap:10px}.name{font-size:12px}.subtitle{font-size:10px}.quarter{grid-template-columns:68px 1fr 65px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="eyebrow">PUBLIC CAPITAL RISK MONITOR</div>
+      <h1>Smart Money Radar｜投资机构大资金攻守追踪</h1>
+      <p>仅追踪五组指定机构或投资者在公开信息中可验证的资金风险姿态：流动性、净买卖风险资产、收缩风险敞口、去杠杆、对冲及选择性配置。严格区分真实组合证据、历史事件和缺失数据。</p>
+      <div class="meta"><span class="chip">核查日 · 2026-11-06（北京时间）</span><span class="chip">美国披露截点 · 2026-11-05</span><span class="chip">历史财报与披露日期分别标注</span></div>
+    </header>
+    <section class="main">
+      <article class="card">
+        <h2>五组机构 · 防御行为倾向评分</h2><p class="desc">1 分偏进攻，3 分攻守并存，5 分显著去风险；没有足够近期完整组合证据时显示 N/A。</p>
+        <div class="risk-row"><div><div class="name">Berkshire Hathaway</div><div class="subtitle">大额流动性 + 选择性净买入</div></div><div class="bar"><span style="width:60%"></span></div><div class="score">3/5</div></div>
+        <div class="risk-row"><div><div class="name">Cathie Wood / ARK ETF</div><div class="subtitle">公开 ETF 成长资产配置</div></div><div class="bar"><span class="offense" style="width:40%"></span></div><div class="score">2/5</div></div>
+        <div class="risk-row"><div><div class="name">Peter Thiel / Thiel Macro</div><div class="subtitle">仅13F部分多头可见</div></div><div class="bar"></div><div class="score na">N/A</div></div>
+        <div class="risk-row"><div><div class="name">Michael Burry / Scion</div><div class="subtitle">顾问注册已终止；全资产未知</div></div><div class="bar"></div><div class="score na">N/A</div></div>
+        <div class="risk-row"><div><div class="name">Situational Awareness LP</div><div class="subtitle">历史去杠杆；当前净敞口未知</div></div><div class="bar"></div><div class="score na">N/A</div></div>
+        <p class="summary">评分体现<em>观察到的防御行为类别</em>，不是金融危机的发生概率。ARK 的 2/5 只描述可见 ETF 投资结构，不代表管理者个人资产；私募基金缺少全面证据时不强行评分。</p>
+      </article>
+      <article class="card">
+        <h2>攻守分布 · 五组机构</h2><p class="desc">按当前可评价的分类，缺少组合数据的单列。</p>
+        <div class="donut" role="img" aria-label="攻守并存1组、偏进攻1组、无法评分3组"></div>
+        <div class="legend"><span><i style="background:#4878ae"></i>攻守并存 1</span><span><i style="background:#2c9485"></i>偏进攻 1</span><span><i style="background:#dbe4ec"></i>N/A 3</span></div>
+        <div class="numbers"><div class="metric"><b>2</b><span>可做解释性评分</span></div><div class="metric"><b>3</b><span>完整组合证据不足</span></div><div class="metric"><b>5</b><span>指定观察对象</span></div></div>
+        <p class="note">存在可验证的单项资产交易，不等于存在可验证的整体资金风险变化。</p>
+      </article>
+    </section>
+    <section class="second">
+      <article class="card">
+        <h2>Berkshire Hathaway · 现金及短期美债</h2><p class="desc">保险及其他业务口径，净额（十亿美元）；按财报报告期排列。</p>
+        <div class="quarter"><span>2026 Q1</span><div class="qbar"><div style="width:100%"></div></div><strong>$373.5B</strong></div>
+        <div class="quarter"><span>2026 Q2</span><div class="qbar"><div style="width:96.2%"></div></div><strong>$359.2B</strong></div>
+        <p class="note">Q2 比 Q1 减少 $14.3B。2026 年上半年报表显示股票买入约 $39.4B、卖出约 $27.8B，合计净买入约 $11.6B。Q3 财报预定 2026-11-07 发布，尚未更新为未知的季度值。</p>
+      </article>
+      <article class="card">
+        <h2>数据边界与解释原则</h2><p class="desc">不以任何一只股票的买卖替代全组合判断。</p>
+        <div class="notice">SEC 13F 只覆盖需申报的一部分证券持仓，不包含现金及完整空头、私有资产或负债，且存在披露滞后。13D/A 是单项重大持仓权益，不代表整个投资组合。期权申报金额并不等于权利金，基金资产不等于管理者个人财富。未披露的现金、杠杆及私募资产全部标记 N/A。</div>
+      </article>
+    </section>
+    <section class="card evidence">
+      <h2>最新可核查资金风险姿态变化 · 最多四项</h2><p class="desc">证据优先官方与 SEC 披露，第三方交易估计只作待核实线索。</p>
+      <div class="evidence-grid">
+        <div class="event"><b>Berkshire：高流动性与选择性买入并存</b><time>2026 Q2 报告期 · 2026-11-04 新公告</time><p>Q2 披露现金及短债约 $359.2B；2026 年上半年公开股票净买入约 $11.6B。Q3 财报于 11 月 7 日公布前不做推测。</p></div>
+        <div class="event"><b>Situational：历史去杠杆后有选择性持仓</b><time>2026-09-15 持仓事件 · 2026-09-17 SEC 13D/A</time><p>早前报道称出售多数公开股票并去杠杆；后续 13D/A 披露特定公司的关联受益持股约 21.1%。这不能证明整体再加杠杆；最新现金、负债和净风险仍未知。</p></div>
+        <div class="event"><b>Scion：目前整体资金姿态不可判断</b><time>2025-11-10 SEC 顾问注册终止</time><p>当前没有足够完整、及时且可验证的组合信息来延续其旧防御评分。公开观点或历史看空期权不能代表 2026 年 11 月整体仓位。</p></div>
+        <div class="event"><b>ARK：成长资产配置，日常交易双向轮动</b><time>2026-11-05 第三方每日跟踪线索</time><p>第三方跟踪显示基金同时有买卖交易，但尚未逐项与基金官方披露核对；不能据此断言 ARK 整个基金体系净加仓或净减仓。</p></div>
+      </div>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h2>五组机构总览</h2><p class="desc">风险判断采用各自最近可核实披露，日期、范围不同。</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>机构 / 投资者</th><th>公开资金姿态</th><th>防御评分</th><th>重要限制</th></tr></thead>
+        <tbody>
+          <tr><td>Berkshire Hathaway</td><td>高现金、短债；同时择机配置股票</td><td>3/5</td><td>仅截至 2026 Q2 官方资产负债与现金流证据；Q3 待公布</td></tr>
+          <tr><td>Peter Thiel / Thiel Macro</td><td>13F 仅反映部分股票多头</td><td>N/A</td><td>现金、私募、空头和杠杆未知</td></tr>
+          <tr><td>Cathie Wood / ARK ETF</td><td>ETF 成长资产风险配置与调仓</td><td>2/5（ETF）</td><td>未证实整个基金体系净风险变化；不代表个人资产</td></tr>
+          <tr><td>Michael Burry / Scion</td><td>当前整体仓位未知</td><td>N/A</td><td>顾问注册终止，不能以历史看空披露评定现时完整组合</td></tr>
+          <tr><td>Leopold Aschenbrenner / Situational Awareness LP</td><td>历史去杠杆与后续单项持仓并存</td><td>N/A</td><td>未披露目前全基金净风险敞口或杠杆</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h2>可查证的公开来源</h2><p class="desc">只在有可靠证据时调整资金姿态结论。</p>
+      <details open><summary>SEC、公司及基金官方材料</summary><ul>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526202243/brka-20260331.htm">Berkshire 2026 Q1 SEC 10-Q</a>；<a target="_blank" rel="noopener noreferrer" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526341032/brka-20260630.htm">2026 Q2 SEC 10-Q</a>；<a target="_blank" rel="noopener noreferrer" href="https://www.berkshirehathaway.com/news/2026news.html">Berkshire 官方公告</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.sec.gov/Archives/edgar/data/1562087/000131586326000593/xslForm13F_X02/primary_doc.xml">Thiel Macro 2026 Q2 SEC 13F</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.ark-funds.com/download-fund-materials">ARK 官方持仓与基金材料</a>；<a target="_blank" rel="noopener noreferrer" href="https://www.ark-funds.com/thank-you-trade-notifications">官方交易通知入口</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://adviserinfo.sec.gov/Firm/167772">Scion SEC IAPD 顾问登记状态</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.sec.gov/Archives/edgar/data/2068385/000093583626000500/xslSCHEDULE_13D_X02/primary_doc.xml">Situational SEC 13D/A</a></li>
+      </ul></details>
+      <details><summary>辅助媒体和第三方交易线索</summary><ul>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.reuters.com/business/finance/situational-awareness-portfolio-sinks-67-july-ai-stock-rout-letter-shows-2026-07-31/">Reuters：Situational 2026-07-31 去风险报道</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://www.reuters.com/legal/transactional/jpmorgan-cut-off-situational-awareness-lending-after-ai-losses-ft-reports-2026-09-11/">Reuters：Situational 2026-09-11 融资报道</a></li>
+        <li><a target="_blank" rel="noopener noreferrer" href="https://etfpeek.com/cathie-wood/">ETFpeek：ARK 第三方交易跟踪（不等于官方核实）</a></li>
+      </ul></details>
+    </section>
+    <footer><strong>Smart Money Radar · 公共研究仪表盘</strong> · 当前快照核查日期 2026-11-06。今后更新同一 <code>index.html</code> 文件即可维持固定网页地址。本站仅汇总公开证据供研究参考，不构成投资建议。</footer>
+  </div>
+</body>
+</html>
